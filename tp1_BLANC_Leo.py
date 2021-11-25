@@ -11,7 +11,7 @@ def generateData(nbSample = 300, nbCenters = 4, nbFeatures = 2, random_state = 0
     X reprensents the data
 
     """
-    X, y = make_blobs(nbSample, nbCenters, nbFeatures, random_state)
+    X, y = make_blobs(n_samples = nbSample, centers = nbCenters, n_features = nbFeatures, random_state = random_state)
     #print(np.shape(X))
     return X
 
@@ -145,6 +145,7 @@ def myKmeans(dataMatrix, nbCentroids, q, nbIteration):
 
     for i in range(nbIteration):
         #print("iteration nb :", i+1)
+        #print(assignation)
         assignation = updateAssignation(dataMatrix, centroidsMatrix, q)
         #print("updateAssignationassignation")
         centroidsMatrix = updateCentroid(dataMatrix, assignation, nbCentroids)
@@ -159,6 +160,8 @@ def myKmeans(dataMatrix, nbCentroids, q, nbIteration):
 
     plt.show()
 
+    
+
 
 
 
@@ -171,8 +174,8 @@ if __name__ == "__main__":
 
     q = 2
 
-    data = generateData()
-    print(data)
+    data = generateData(30000, 4, 5)
+    print(data[0:10])
 
 
 
@@ -180,7 +183,7 @@ if __name__ == "__main__":
     print("L"+ str(q) + " norm of the first 2 row of data :", calcLq(data[0], data[1], q))
     print("using function norm :",np.linalg.norm([data[0] - data[1]]))
 
-    myKmeans(data, 4, 2, 20)
+    myKmeans(data, 4, 10, 20)
 
 
 
