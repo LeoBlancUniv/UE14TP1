@@ -97,6 +97,9 @@ def updateCentroid(dataMatrix, assignation, nbCentroids):
     return ret
 
 
+
+
+
 def computeKmeansLoss(dataMatrix, centroidsMatrix, assignation, q):
     """
     return the loss function of the k means alg
@@ -144,7 +147,7 @@ def myKmeans(dataMatrix, nbCentroids, q, nbIteration):
 
 
     for i in range(nbIteration):
-        #print("iteration nb :", i+1)
+        print("iteration nb :", i+1)
         #print(assignation)
         assignation = updateAssignation(dataMatrix, centroidsMatrix, q)
         #print("updateAssignationassignation")
@@ -153,14 +156,36 @@ def myKmeans(dataMatrix, nbCentroids, q, nbIteration):
         lossArr += [computeKmeansLoss(dataMatrix, centroidsMatrix, assignation, q)]
         #print("computeKmeansLoss")
 
+        plt.clf()
 
-    print(lossArr)
+        plt.scatter(dataMatrix[:,0], dataMatrix[:,1], c = assignation)
 
-    plt.scatter([x for x in range(nbIteration)], lossArr)
+        plt.scatter(np.array(centroidsMatrix)[:,0], np.array(centroidsMatrix)[:,1], c = [x for x in range(len(centroidsMatrix))], marker = "*")
 
-    plt.show()
+        plt.show(block = False)
 
-    
+        plt.pause(0.01)
+
+
+
+    plt.pause(10)
+
+
+
+
+    #print(lossArr)
+
+    #plt.scatter([x for x in range(nbIteration)], lossArr)
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -172,9 +197,20 @@ def myKmeans(dataMatrix, nbCentroids, q, nbIteration):
 
 if __name__ == "__main__":
 
-    q = 2
+    nbData = 30000
 
-    data = generateData(30000, 4, 5)
+    nbFeatures = 10
+
+    q = 10
+
+    nbCentroids = 10
+
+    nbIteration = 20
+
+    r = randint(0, nbData)
+
+    data = generateData(nbData, nbCentroids, nbFeatures, r)
+
     print(data[0:10])
 
 
@@ -183,7 +219,9 @@ if __name__ == "__main__":
     print("L"+ str(q) + " norm of the first 2 row of data :", calcLq(data[0], data[1], q))
     print("using function norm :",np.linalg.norm([data[0] - data[1]]))
 
-    myKmeans(data, 4, 10, 20)
+
+
+    myKmeans(data, nbCentroids, q, nbIteration)
 
 
 
